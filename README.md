@@ -14,6 +14,7 @@ An offer consists of an offer id, price, description, cancelled state and expiry
   "expiryDate" : 2019-02-15T23:59:59.000
 }
 ```
+## Endpoints:
 
 #### /offers/search (GET)
 > Returns all offers which are active, i.e. not cancelled and before their expiry date.
