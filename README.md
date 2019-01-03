@@ -8,7 +8,7 @@ A RESTful API, allowing for offers to be queried, created and cancelled. Uses Sp
 > Returns all offers which are active and not expired.
 
 #### /offers/create (POST)
-> Creates an offer, based on offer JSON supplied in the request body.
+> Creates an offer, based on offer JSON supplied in the request body. E.g.:
 ```
 {
   "offerId" : 52,
@@ -19,7 +19,7 @@ A RESTful API, allowing for offers to be queried, created and cancelled. Uses Sp
 ```
 
 #### /offers/cancel (POST)
-> Cancels an offer, based on an offerId supplied in the request body.
+> Cancels an offer, based on an offer Id supplied in the request body. E.g.:
 
 ```
 53
