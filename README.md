@@ -1,6 +1,6 @@
 # OffersAPI
 
-A RESTful API, allowing for offers to be queried, created and cancelled. Uses Spring, Cucumber, Mockito and JUnit. Offers are persisted to **/resources/offers.json**. Run **Launcher** to start the web service. Run **TestRunner** to launch automated behaviour driven tests. 
+A RESTful API, allowing for offers to be queried, created and cancelled. Offers are stored in JSON format. Uses Spring, Cucumber, Mockito and JUnit. Offers are persisted to **/resources/offers.json**. Run **Launcher** to start the web service. Run **TestRunner** to launch automated behaviour driven tests. 
 
 *Please note that the automated tests reset their state after completion and do not use the same offers.JSON file referenced by the main web service.* 
 
@@ -11,7 +11,7 @@ An offer consists of an offer id, price, description, cancelled state and expiry
   "price" : 9.99,
   "description" : "Huge discount!",
   "cancelled" : false
-  "expiryDate" : 2019-02-15T23:59:59.000
+  "expiryDate" : 1546471980000
 }
 ```
 ## Endpoints:
