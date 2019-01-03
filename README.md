@@ -4,8 +4,19 @@ A RESTful API, allowing for offers to be queried, created and cancelled. Uses Sp
 
 *Please note that the automated tests reset their state after completion and do not use the same offers.JSON file referenced by the main web service.* 
 
+An offer consists of an offer id, price, description, cancelled state and expiry date. E.g:
+```
+{
+  "offerId" : 412,
+  "price" : 9.99,
+  "description" : "Huge discount!",
+  "cancelled" : false
+  "expiryDate" : 2019-02-15T23:59:59.000
+}
+```
+
 #### /offers/search (GET)
-> Returns all offers which are active and not expired.
+> Returns all offers which are active, i.e. not cancelled and before their expiry date.
 
 #### /offers/create (POST)
 > Creates an offer, based on offer JSON supplied in the request body. E.g.:
