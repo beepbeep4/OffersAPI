@@ -17,7 +17,16 @@ An offer consists of an offer id, price, description, cancelled state and expiry
 ## Endpoints:
 
 #### /offers/search (GET)
-> Returns all offers which are active, i.e. not cancelled and before their expiry date.
+> Returns all offers, or offers matching the "id" parameter which are active, i.e. not cancelled and before their expiry date. E.g.:
+```
+localhost:8080/offers/search
+```
+```
+localhost:8080/offers/search?id=2
+```
+```
+localhost:8080/offers/search?id=2&id=6
+```
 
 #### /offers/create (POST)
 > Creates an offer, based on offer JSON supplied in the request body. E.g.:
