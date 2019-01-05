@@ -4,7 +4,7 @@ A RESTful API, allowing for offers to be queried, created and cancelled. Uses Sp
 
 Run **Launcher** to start the web service. Run **TestRunner** to launch automated behaviour driven tests. 
 
-*Note that the automated tests reset their state after completion and do not use the same offers.JSON file as the main web service.* 
+*Note that the automated tests reset their state after completion and do not use the same offers.JSON file as the main web service. Also note that if the test data contained within test/resources/clean_offers.json is edited, automated tests may fail.* 
 
 An offer consists of an offer id, price, description, cancelled state and expiry date.
 
