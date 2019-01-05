@@ -6,16 +6,8 @@ Run **Launcher** to start the web service. Run **TestRunner** to launch automate
 
 *Note that the automated tests reset their state after completion and do not use the same offers.JSON file as the main web service.* 
 
-An offer consists of an offer id, price, description, cancelled state and expiry date. E.g:
-```
-{
-  "offerId" : 412,
-  "price" : 9.99,
-  "description" : "Huge discount!",
-  "cancelled" : false,
-  "expiryDate" : 1546471980000
-}
-```
+An offer consists of an offer id, price, description, cancelled state and expiry date.
+
 ## Endpoints:
 
 #### /offers/search (GET)
