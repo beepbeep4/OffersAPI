@@ -2,7 +2,7 @@
 
 A REST API, allowing for offers to be queried, created and cancelled. Uses Spring, Jackson, Cucumber and JUnit. Offers are persisted to **/resources/offers.json**. Run **Launcher** to start the web service. Run **TestRunner** to launch automated behaviour driven tests. 
 
-*Please note that the automated tests reset their state after completion and do not use the same offers.JSON file as the main web service.* 
+*Note that the automated tests reset their state after completion and do not use the same offers.JSON file as the main web service.* 
 
 An offer consists of an offer id, price, description, cancelled state and expiry date. E.g:
 ```
@@ -38,6 +38,7 @@ localhost:8080/offers/search?id=2&id=6
   "expiryDate" : 2019-01-30T23:33:00.000
 }
 ```
+*Note that an offer cannot be created as cancelled.*
 
 #### /offers/cancel (POST)
 > Cancels an offer, based on an offer Id supplied in the request body. E.g.:
