@@ -1,6 +1,6 @@
 # OffersAPI
 
-A REST, allowing for offers to be queried, created and cancelled. Uses Spring, Jackson, Cucumber and JUnit. Offers are persisted to **/resources/offers.json**. Run **Launcher** to start the web service. Run **TestRunner** to launch automated behaviour driven tests. 
+A REST API, allowing for offers to be queried, created and cancelled. Uses Spring, Jackson, Cucumber and JUnit. Offers are persisted to **/resources/offers.json**. Run **Launcher** to start the web service. Run **TestRunner** to launch automated behaviour driven tests. 
 
 *Please note that the automated tests reset their state after completion and do not use the same offers.JSON file as the main web service.* 
 
