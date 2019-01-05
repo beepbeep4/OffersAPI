@@ -10,7 +10,7 @@ An offer consists of an offer id, price, description, cancelled state and expiry
   "offerId" : 412,
   "price" : 9.99,
   "description" : "Huge discount!",
-  "cancelled" : false
+  "cancelled" : false,
   "expiryDate" : 1546471980000
 }
 ```
