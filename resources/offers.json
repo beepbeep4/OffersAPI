@@ -1,0 +1,19 @@
+[ {
+  "offerId" : 1,
+  "price" : 23.0,
+  "description" : "20% off!",
+  "cancelled" : false,
+  "expiryDate" : 1548891180000
+}, {
+  "offerId" : 2,
+  "price" : 41.0,
+  "description" : "Buy one get one free!",
+  "cancelled" : false,
+  "expiryDate" : 1546471980000
+}, {
+  "offerId" : 3,
+  "price" : 12.0,
+  "description" : "50% off!",
+  "cancelled" : false,
+  "expiryDate" : 1544620260000
+} ]
