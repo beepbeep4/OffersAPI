@@ -73,7 +73,7 @@ public class DAOService
         // more information than normal (i.e. if offer is expired or cancelled)
         if (ids.length == 1)
         {
-            return offerDAO.getOffersById(ids[0]);
+            return offerDAO.getOfferById(ids[0]);
         }
         // Otherwise we will be performing a "bulk" search
         else
