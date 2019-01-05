@@ -19,36 +19,74 @@ import java.util.List;
 public class SearchOffers extends StepDefinition
 {
     boolean idSearch = false;
-    long searchId = 3;
+
+    boolean singleIdSearch = false;
+    long validOrderId = 3;
+    long cancelledOrderId = 4;
+    long expiredOrderId = 5;
     String malformedId = "ab";
 
     @When("^A user navigates to the offers/search endpoint without parameters$")
     public void a_user_navigates_to_the_offers_search_endpoint_without_parameters() throws Throwable
     {
         response = simulateEndpoint("/offers/search", RequestMethod.GET, "");
-        idSearch = false;
     }
 
     @When("^A user navigates to the offers/search endpoint with valid parameters$")
     public void a_user_navigates_to_the_offers_search_endpoint_with_valid_parameters() throws Throwable
     {
-        Pair<String,String> validId = new Pair<>("id", searchId + "");
-        response = simulateEndpoint("/offers/search", RequestMethod.GET,"", validId);
-        idSearch = true;
+        singleIdSearch = true;
+        Pair<String,String> params = new Pair<>("id", validOrderId + "");
+        response = simulateEndpoint("/offers/search", RequestMethod.GET,"", params);
     }
 
     @When("^A user navigates to the offers/search endpoint with malformed parameters$")
     public void a_user_navigates_to_the_offers_search_endpoint_with_malformed_parameters() throws Throwable
     {
-        Pair<String,String> validId = new Pair<>("id", malformedId + "");
-        response = simulateEndpoint("/offers/search", RequestMethod.GET,"", validId);
-        idSearch = true;
+        Pair<String,String> params = new Pair<>("id", malformedId + "");
+        response = simulateEndpoint("/offers/search", RequestMethod.GET,"", params);
+    }
+
+    @When("^A user navigates to the offers/search endpoint with an expired id$")
+    public void a_user_navigates_to_the_offers_search_endpoint_with_an_expired_id() throws Throwable
+    {
+        resetOffers();
+        Pair<String,String> params = new Pair<>("id", expiredOrderId + "");
+        response = simulateEndpoint("/offers/search", RequestMethod.GET,"", params);
+    }
+
+    @When("^A user navigates to the offers/search endpoint with a cancelled id$")
+    public void a_user_navigates_to_the_offers_search_endpoint_with_a_cancelled_id() throws Throwable
+    {
+        resetOffers();
+        Pair<String,String> params = new Pair<>("id", cancelledOrderId + "");
+        response = simulateEndpoint("/offers/search", RequestMethod.GET,"", params);
     }
 
     @Then("^The search returns an error$")
     public void the_search_returns_an_error() throws Throwable
     {
         Assert.assertEquals(ResponseType.OFFER_MALFORMED.getHttpStatusCode(), response.getStatus());
+    }
+
+    @Then("^The user is warned that the offer has expired$")
+    public void the_user_is_warned_that_the_offer_has_expired() throws Throwable
+    {
+        String responseText = response.getContentAsString();
+
+        // Check that the response was as expected
+        Assert.assertTrue(responseText.equals(ResponseType.OFFER_EXPIRED.getMessage()));
+        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+    }
+
+    @Then("^The user is warned that the offer is cancelled$")
+    public void the_user_is_warned_that_the_offer_is_cancelled() throws Throwable
+    {
+        String responseText = response.getContentAsString();
+
+        // Check that the response was as expected
+        Assert.assertTrue(responseText.equals(ResponseType.OFFER_ALREADY_CANCELLED.getMessage()));
+        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
     }
 
     @Then("^All valid offers are returned$")
@@ -61,9 +99,11 @@ public class SearchOffers extends StepDefinition
         // Ensure offers are actually valid
         for (Offer offer : offers)
         {
-            if (idSearch)
+            // Id search check
+            if (singleIdSearch)
             {
-                Assert.assertTrue(offer.getOfferId() == searchId);
+                Assert.assertTrue(offer.getOfferId() == validOrderId);
+                singleIdSearch = false;
             }
 
             // Not cancelled

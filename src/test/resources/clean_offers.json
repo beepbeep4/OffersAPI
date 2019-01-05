@@ -16,4 +16,16 @@
   "description" : "50% off!",
   "cancelled" : false,
   "expiryDate" : 1544620260000
+}, {
+  "offerId" : 4,
+  "price" : 12.0,
+  "description" : "50% off!",
+  "cancelled" : true,
+  "expiryDate" : 1544620260000
+}, {
+  "offerId" : 5,
+  "price" : 12.0,
+  "description" : "50% off!",
+  "cancelled" : false,
+  "expiryDate" : 2355270400000
 } ]
