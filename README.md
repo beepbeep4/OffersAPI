@@ -22,7 +22,7 @@ localhost:8080/offers/search?id=2
 localhost:8080/offers/search?id=2&id=6
 ```
 
-A response will contain response information, a data section and a links section. E.g:
+The API's response will be constructed with response information, a data container and a links container. E.g.:
 
 ```
 {
