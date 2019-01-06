@@ -22,6 +22,37 @@ localhost:8080/offers/search?id=2
 localhost:8080/offers/search?id=2&id=6
 ```
 
+A response will contain response information, a data section and a links section. E.g:
+
+```
+{
+   "responseType":"OK",
+   "responseCode":200,
+   "responseMessage":"Received",
+   "data":{
+      "offers":[
+         {
+            "offerId":2,
+            "price":41.0,
+            "description":"Buy one get one free!",
+            "cancelled":false,
+            "expiryDate":1546471980000
+         },
+         {
+            "offerId":3,
+            "price":12.0,
+            "description":"50% off!",
+            "cancelled":false,
+            "expiryDate":1544620260000
+         }
+      ]
+   },
+   "links":{
+      "self":"/offers/search"
+   }
+}
+```
+
 #### /offers/create (POST)
 > Creates an offer, based on offer JSON supplied in the request body. E.g.:
 ```
