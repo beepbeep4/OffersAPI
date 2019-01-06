@@ -61,12 +61,11 @@ public class JSONParser
      * @return The resulting object list.
      * @throws IOException Thrown if the readFromFile operation fails.
      */
-    public List<?> readFromString(String json, Class<?> clazz) throws IOException
+    public Object readFromString(String json, Class<?> clazz) throws IOException
     {
-        CollectionType listType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, clazz);
-        List<?> results = mapper.readValue(json, listType);
+        Object result = mapper.readValue(json, clazz);
 
-        return results;
+        return result;
     }
 
     /**

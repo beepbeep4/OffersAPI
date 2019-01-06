@@ -74,12 +74,13 @@ public class WebService
             response = DAOService.getInstance().findAllValidOffers();
         }
 
+        response.getLinks().setSelf(request.getRequestURI());
         ResponseType responseType = response.getResponseType();
         printResponse(response);
 
         // Return response to client
         return ResponseEntity.status(responseType.getHttpStatusCode())
-                .body(response.getOffers() != null ? response.getOffers() : responseType.getMessage());
+                .body(response);
     }
 
     /**
@@ -97,6 +98,7 @@ public class WebService
         printResponse(offerResponse);
 
         // Return response to client
+        offerResponse.getLinks().setSelf("/offers/create");
         ResponseType responseType = offerResponse.getResponseType();
         return ResponseEntity.status(responseType.getHttpStatusCode()).body(responseType.getMessage());
     }
@@ -117,6 +119,7 @@ public class WebService
         printResponse(offerResponse);
 
         // Return response to client
+        offerResponse.getLinks().setSelf("/offers/cancel");
         ResponseType responseType = offerResponse.getResponseType();
         return ResponseEntity.status(responseType.getHttpStatusCode()).body(responseType.getMessage());
     }

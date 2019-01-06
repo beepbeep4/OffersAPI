@@ -1,57 +1,86 @@
 package mw.offers.response;
 
 import mw.offers.entity.Offer;
+import mw.offers.response.containers.DataContainer;
+import mw.offers.response.containers.LinkContainer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Response object which is evaluated by the web service.
- * Allows for a data payload (i.e. offers) to be combined with a HTTP response code defining
- * if the operation succeeded or not.
+ * Defines a data section, link section and series of response attributes.
  */
 public class OfferResponse
 {
     /**
-     * The response type
+     * The response type enum
      */
-    private ResponseType type;
+    private ResponseType responseType;
 
     /**
-     * The offers stored in the response
+     * The HTTP status code
      */
-    private List<Offer> offers;
+    private int responseCode;
 
     /**
-     * Constructor - Multiple offers
-     * @param type The response types
-     * @param offers The offers to store
+     * The custom response message
      */
-    public OfferResponse(ResponseType type, List<Offer> offers)
+    private String responseMessage;
+
+    /**
+     * Data section
+     */
+    private DataContainer data = new DataContainer();
+
+    /**
+     * Links section
+     */
+    private LinkContainer links = new LinkContainer();
+
+    /**
+     * Blank constructor - required for deserialization
+     */
+    public OfferResponse()
+    { }
+
+    /**
+     * Sets the response type contained within the container
+     * @param responseType The response type to set
+     */
+    public void setResponseType(ResponseType responseType)
     {
-        this.type = type;
-        this.offers = offers;
+        this.responseType = responseType;
     }
 
     /**
-     * Constructor - A single offer
-     * @param type The response types
-     * @param offer The offer to store
+     * Response type only constructor, usually describing a failure case
+     * @param responseType The response type to set
      */
-    public OfferResponse(ResponseType type, Offer offer)
+    public OfferResponse(ResponseType responseType)
     {
-        this.type = type;
-        this.offers = new ArrayList<>();
-        offers.add(offer);
+        setResponseType(responseType);
     }
 
     /**
-     * Constructor - No offers
-     * @param type The response types
+     * Constructor to add a response and list of offers to the data container
+     * @param responseType The response type to add
+     * @param offers The offers to add
      */
-    public OfferResponse(ResponseType type)
+    public OfferResponse(ResponseType responseType, List<Offer> offers)
     {
-        this.type = type;
+        setResponseType(responseType);
+        this.data.setOffers(offers);
+    }
+
+    /**
+     * Constructor to add a response and single offer to the data container
+     * @param responseType The response type to add
+     * @param offer The offer to add
+     */
+    public OfferResponse(ResponseType responseType, Offer offer)
+    {
+        setResponseType(responseType);
+        this.data.addOffer(offer);
     }
 
     /**
@@ -60,15 +89,42 @@ public class OfferResponse
      */
     public ResponseType getResponseType()
     {
-        return type;
+        return responseType;
     }
 
     /**
-     * Retrieves the offers stored in the response
-     * @return The offers, or null
+     * Retrieves the links section
+     * @return The links section
      */
-    public List<Offer> getOffers()
+    public LinkContainer getLinks()
     {
-        return offers;
+        return links;
+    }
+
+    /**
+     * Retrieves the data sections
+     * @return The data section
+     */
+    public DataContainer getData()
+    {
+        return data;
+    }
+
+    /**
+     * Retrieves the HTTP status code associated with the response.
+     * @return The HTTP status code.
+     */
+    public int getResponseCode()
+    {
+        return responseType.getHttpStatusCode();
+    }
+
+    /**
+     * Retrieves the custom message associated with the response.
+     * @return The response message;
+     */
+    public String getResponseMessage()
+    {
+        return responseType.getMessage();
     }
 }

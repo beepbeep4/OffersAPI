@@ -5,6 +5,7 @@ import cucumber.api.java.en.When;
 import javafx.util.Pair;
 import mw.offers.entity.Offer;
 import mw.offers.persistence.JSONParser;
+import mw.offers.response.OfferResponse;
 import mw.offers.response.ResponseType;
 import org.junit.Assert;
 import org.springframework.http.HttpStatus;
@@ -73,9 +74,10 @@ public class SearchOffers extends StepDefinition
     public void the_user_is_warned_that_the_offer_has_expired() throws Throwable
     {
         String responseText = response.getContentAsString();
+        OfferResponse offerResponse = (OfferResponse) new JSONParser().readFromString(responseText, OfferResponse.class);
 
         // Check that the response was as expected
-        Assert.assertTrue(responseText.equals(ResponseType.OFFER_EXPIRED.getMessage()));
+        Assert.assertTrue(offerResponse.getResponseType().getMessage().equals(ResponseType.OFFER_EXPIRED.getMessage()));
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
     }
 
@@ -83,9 +85,10 @@ public class SearchOffers extends StepDefinition
     public void the_user_is_warned_that_the_offer_is_cancelled() throws Throwable
     {
         String responseText = response.getContentAsString();
+        OfferResponse offerResponse = (OfferResponse) new JSONParser().readFromString(responseText, OfferResponse.class);
 
         // Check that the response was as expected
-        Assert.assertTrue(responseText.equals(ResponseType.OFFER_ALREADY_CANCELLED.getMessage()));
+        Assert.assertTrue(offerResponse.getResponseType().getMessage().equals(ResponseType.OFFER_ALREADY_CANCELLED.getMessage()));
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
     }
 
@@ -94,7 +97,8 @@ public class SearchOffers extends StepDefinition
     {
         String responseText = response.getContentAsString();
 
-        List<Offer> offers = (List<Offer>) new JSONParser().readFromString(responseText, Offer.class);
+        OfferResponse response = (OfferResponse) new JSONParser().readFromString(responseText, OfferResponse.class);
+        List<Offer> offers = response.getData().getOffers();
 
         // Ensure offers are actually valid
         for (Offer offer : offers)
@@ -112,6 +116,6 @@ public class SearchOffers extends StepDefinition
             Assert.assertEquals(offer.getExpiryDate().after(Calendar.getInstance().getTime()), false);
         }
 
-        Assert.assertEquals(HttpStatus.OK.value(), response.getStatus());
+        Assert.assertEquals(HttpStatus.OK.value(), response.getResponseType().getHttpStatusCode());
     }
 }

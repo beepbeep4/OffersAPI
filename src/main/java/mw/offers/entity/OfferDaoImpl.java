@@ -62,7 +62,7 @@ public class OfferDaoImpl implements OfferDAO
         }
 
         // Collect all valid offers
-        List<Offer> validOffers = response.getOffers().stream()
+        List<Offer> validOffers = response.getData().getOffers().stream()
           .filter(o -> !o.getCancelled())
             .filter(o -> o.getExpiryDate().before(Calendar.getInstance().getTime()))
               .collect(Collectors.toCollection(ArrayList::new));
@@ -87,7 +87,7 @@ public class OfferDaoImpl implements OfferDAO
             return response;
         }
 
-        for (Offer offer : response.getOffers())
+        for (Offer offer : response.getData().getOffers())
         {
             // A single offer id search will return more information than normal
             if (offer.getOfferId() == id)
@@ -131,7 +131,7 @@ public class OfferDaoImpl implements OfferDAO
         // Find all offers matching the ID
         for (int i=0; i<ids.length; i++)
         {
-            for (Offer offer : response.getOffers())
+            for (Offer offer : response.getData().getOffers())
             {
                 if (offer.getOfferId() == ids[i])
                 {
@@ -159,7 +159,7 @@ public class OfferDaoImpl implements OfferDAO
             return new OfferResponse(ResponseType.OFFER_MALFORMED);
         }
 
-        List<Offer> offers = findAllOffers().getOffers();
+        List<Offer> offers = findAllOffers().getData().getOffers();
 
         // Check if the offer ID already exists
         if (offers != null && offers.stream().filter(o -> o.getOfferId() == offer.getOfferId()).count() > 0)
@@ -191,7 +191,7 @@ public class OfferDaoImpl implements OfferDAO
 
         // Attempt to locate the offer to cancel
         boolean found = false;
-        for (Offer offer : response.getOffers())
+        for (Offer offer : response.getData().getOffers())
         {
             if (offer.getOfferId() == offerId)
             {
@@ -213,7 +213,7 @@ public class OfferDaoImpl implements OfferDAO
         }
 
         // Attempt to write the response back to disk
-        if (writeOffers(response.getOffers()).getResponseType() == ResponseType.OFFER_ADDED)
+        if (writeOffers(response.getData().getOffers()).getResponseType() == ResponseType.OFFER_ADDED)
         {
             return new OfferResponse(ResponseType.OFFER_CANCELLED);
         }
